@@ -1,0 +1,60 @@
+<sql-statement> ::= <select-statement>
+                  | <create-table-statement>
+                  | <drop-table-statement>
+                  | <insert-statement>
+                  | <delete-statement>
+                  | <show-databases-statement>
+                  | <use-database-statement>
+                  | <show-tables-statement>
+                  | <describe-table-statement>
+
+<select-statement> ::= SELECT <column-list> FROM <table> <where-clause> | λ
+
+<create-table-statement> ::= CREATE TABLE <table> (<column-definitions>)
+
+<column-definitions> ::= <column-definition> | <column-definition> , <column-definitions>
+
+<column-definition> ::= <column> <data-type> <column-options>
+
+<column-options> ::= NOT NULL | NULL | PRIMARY KEY | λ
+
+<data-type> ::= INT | VARCHAR(<size>) | DECIMAL(<size>,<scale>) | DATE | BOOLEAN
+
+<drop-table-statement> ::= DROP TABLE <table>
+
+<insert-statement> ::= INSERT INTO <table> VALUES ( <value-list> )
+
+<delete-statement> ::= DELETE FROM <table> <where-clause>
+
+<show-databases-statement> ::= SHOW DATABASES ;
+
+<use-database-statement> ::= USE <database> ;
+
+<show-tables-statement> ::= SHOW TABLES ;
+
+<describe-table-statement> ::= DESCRIBE <table> ;
+
+<where-clause> ::= WHERE <condition> | λ
+
+<condition> ::= <column> <operator> <value>
+              | <condition> AND <condition>
+              | <condition> OR <condition>
+              | NOT <condition>
+
+<operator> ::= = | <> | < | <= | > | >=
+
+<column-list> ::= * | <column> | <column> , <column-list>
+
+<value-list> ::= <value> | <value> , <value-list>
+
+<table> ::= ident
+
+<database> ::= ident
+
+<column> ::= ident
+
+<value> ::= literal | number
+
+<size> ::= number
+
+<scale> ::= number

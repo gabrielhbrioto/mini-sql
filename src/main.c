@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "../headers/sqlEngine.h"
 
 int main(int argc, char* argv[]) {
 

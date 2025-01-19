@@ -53,7 +53,7 @@ void read_command(char** command) {
         *command = realloc(*command, (command_length)*sizeof(char));
         if (*command == NULL) {
 
-            perror(MEMORY_ALOCATION_ERRROR); 
+            MEMORY_ALOCATION_ERRROR
             exit(1);
 
         }
@@ -65,7 +65,7 @@ void read_command(char** command) {
     *command = realloc(*command, (command_length)*sizeof(char));
     if (*command == NULL) {
 
-        perror(MEMORY_ALOCATION_ERRROR); 
+        MEMORY_ALOCATION_ERRROR 
         exit(1);
 
     }

@@ -64,3 +64,4 @@ Observations:
 - Only inline comments are accepted
 - Identifiers are formed with letters, digits and underscore
 - Identifiers must start with a letter or underscore 
+- Case insensitive

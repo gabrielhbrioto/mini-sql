@@ -8,21 +8,20 @@
 			<initial/>
 		</state>
 		<state id="1" name="q1">
-			<x>256.0</x>
-			<y>368.0</y>
+			<x>224.0</x>
+			<y>334.0</y>
 		</state>
 		<state id="2" name="q2">
-			<x>383.0</x>
-			<y>370.0</y>
-			<final/>
+			<x>349.0</x>
+			<y>331.0</y>
 		</state>
 		<state id="3" name="q3">
-			<x>186.0</x>
-			<y>443.0</y>
+			<x>187.0</x>
+			<y>461.0</y>
 		</state>
 		<state id="4" name="q4">
-			<x>375.0</x>
-			<y>444.0</y>
+			<x>372.0</x>
+			<y>459.0</y>
 			<final/>
 		</state>
 		<state id="5" name="q5">
@@ -79,12 +78,31 @@
 			<final/>
 		</state>
 		<state id="16" name="q16">
-			<x>216.0</x>
-			<y>544.0</y>
+			<x>159.0</x>
+			<y>569.0</y>
 		</state>
 		<state id="17" name="q17">
-			<x>377.0</x>
-			<y>543.0</y>
+			<x>379.0</x>
+			<y>566.0</y>
+			<final/>
+		</state>
+		<state id="18" name="q18">
+			<x>254.0</x>
+			<y>402.0</y>
+		</state>
+		<state id="19" name="q19">
+			<x>373.0</x>
+			<y>401.0</y>
+			<final/>
+		</state>
+		<state id="20" name="q20">
+			<x>114.0</x>
+			<y>615.0</y>
+			<final/>
+		</state>
+		<state id="21" name="q21">
+			<x>46.0</x>
+			<y>627.0</y>
 			<final/>
 		</state>
 		<!--The list of transitions.-->
@@ -95,78 +113,13 @@
 		</transition>
 		<transition>
 			<from>9</from>
-			<to>10</to>
-			<read/>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>16</to>
-			<read>Digit</read>
-		</transition>
-		<transition>
-			<from>16</from>
-			<to>17</to>
-			<read>Other</read>
-		</transition>
-		<transition>
-			<from>9</from>
-			<to>12</to>
-			<read>&gt;</read>
-		</transition>
-		<transition>
-			<from>9</from>
 			<to>11</to>
 			<read>=</read>
 		</transition>
 		<transition>
 			<from>0</from>
-			<to>9</to>
-			<read>&lt;</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>6</to>
-			<read>&gt;</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>3</to>
-			<read>Letter</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>13</to>
-			<read>*</read>
-		</transition>
-		<transition>
-			<from>3</from>
-			<to>3</to>
-			<read>_</read>
-		</transition>
-		<transition>
-			<from>6</from>
-			<to>7</to>
-			<read/>
-		</transition>
-		<transition>
-			<from>3</from>
-			<to>3</to>
-			<read>Digit</read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>1</to>
-			<read>Digit</read>
-		</transition>
-		<transition>
-			<from>16</from>
-			<to>16</to>
-			<read>Digit</read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>2</to>
-			<read>--</read>
+			<to>21</to>
+			<read>;</read>
 		</transition>
 		<transition>
 			<from>6</from>
@@ -174,19 +127,24 @@
 			<read>=</read>
 		</transition>
 		<transition>
-			<from>1</from>
-			<to>1</to>
-			<read>Letter</read>
+			<from>18</from>
+			<to>19</to>
+			<read>-</read>
 		</transition>
 		<transition>
-			<from>3</from>
-			<to>3</to>
-			<read>Letter</read>
+			<from>0</from>
+			<to>15</to>
+			<read>(</read>
 		</transition>
 		<transition>
 			<from>0</from>
 			<to>1</to>
-			<read>--</read>
+			<read>-</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>14</to>
+			<read>(</read>
 		</transition>
 		<transition>
 			<from>3</from>
@@ -194,9 +152,9 @@
 			<read>Other</read>
 		</transition>
 		<transition>
-			<from>0</from>
-			<to>15</to>
-			<read>)</read>
+			<from>16</from>
+			<to>17</to>
+			<read>Other</read>
 		</transition>
 		<transition>
 			<from>0</from>
@@ -209,13 +167,93 @@
 			<read>_</read>
 		</transition>
 		<transition>
-			<from>0</from>
-			<to>14</to>
-			<read>(</read>
+			<from>9</from>
+			<to>12</to>
+			<read>&gt;</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>3</to>
+			<read>_</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>3</to>
+			<read>Digit</read>
+		</transition>
+		<transition>
+			<from>16</from>
+			<to>16</to>
+			<read>Digit</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>2</to>
+			<read>Digit</read>
+		</transition>
+		<transition>
+			<from>6</from>
+			<to>7</to>
+			<read/>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>18</to>
+			<read>-</read>
+		</transition>
+		<transition>
+			<from>9</from>
+			<to>10</to>
+			<read/>
 		</transition>
 		<transition>
 			<from>1</from>
-			<to>1</to>
+			<to>2</to>
+			<read>-</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>3</to>
+			<read>Letter</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>2</to>
+			<read>Letter</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>16</to>
+			<read>Digit</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>9</to>
+			<read>&lt;</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>13</to>
+			<read>*</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>3</to>
+			<read>Letter</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>20</to>
+			<read>Other</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>6</to>
+			<read>&gt;</read>
+		</transition>
+		<transition>
+			<from>2</from>
+			<to>2</to>
 			<read>Other</read>
 		</transition>
 	</automaton>

@@ -1,0 +1,156 @@
+
+<sql-statement> ::= <select-statement>
+                  | <insert-statement>
+                  | <update-statement>
+                  | <delete-statement>
+                  | <create-statement>
+                  | <alter-statement>
+                  | <drop-statement>
+                  | <grant-statement>
+                  | <revoke-statement>
+                  | <show-statement>
+                  | <use-statement>
+                  | <describe-statement>
+                  | <union-statement>
+                  | <now-statement>
+                  | <curdate-statement>
+
+<select-statement> ::= SELECT <column-list> FROM <table> <where-clause> <order-clause> <group-clause> <having-clause> <limit-clause> <offset-clause>
+
+<insert-statement> ::= INSERT INTO <table> ( <column-list> ) VALUES ( <value-list> )
+
+<update-statement> ::= UPDATE <table> SET <set-clause> <where-clause>
+
+<delete-statement> ::= DELETE FROM <table> <where-clause>
+
+<create-statement> ::= CREATE TABLE <table> ( <column-definitions> <constraint-definitions>)
+                     | CREATE INDEX <index-name> ON <table> ( <column> )
+                     | CREATE DATABASE <database>
+                     | CREATE USER <user> IDENTFIED BY <senha>
+
+<alter-statement> ::= ALTER TABLE <table> <alter-action>
+                    | ALTER USER <user> WITH PASSWORD <password>
+                    | ALTER INDEX <idex-name> TO <new-idex-name>
+
+<drop-statement> ::= DROP <object-type> <object-name>
+
+<grant-statement> ::= GRANT SELECT ON <table> TO <user>
+
+<revoke-statement> ::= REVOKE SELECT ON <table> FROM <user>
+
+<show-statement> ::= SHOW <show-options>
+
+<use-statement> ::= USE <database>
+
+<describe-statement> ::= DESCRIBE <database-or-table>
+
+<union-statement> ::= <select-statement> UNION [ALL] <select-statement>
+
+<now-statement> ::= SELECT NOW()
+
+<curdate-statement> ::= SELECT CURDATE()
+
+<set-clause> ::= <column> = <value> | <column> = <value>, <set-clause>
+
+<alter-action> ::= ADD <column-definition>
+                 | DROP COLUMN <column>
+                 | MODIFY <column-definition>
+                 | RENAME COLUMN <column> TO <new-column>
+                 | ADD <constraint>
+
+<column-definitions> ::= <column-definition> | <column-definition> , <column-definitions>
+
+<constraint-definitions> ::= <constraint-definition> | <constraint-definition> , <constraint-definition> | λ 
+
+<column-definition> ::=  <column> <data-type> <column-options>
+
+<constraint-definition> ::= CONSTRAINT <constraint-name> <constraint-type> 
+
+<constraint-type> ::= UNIQUE (<column-list>) 
+                    | PRIMARY KEY (<column-list>)
+                    | FOREIGN KEY (<column-list>) <foreign-key-definition> 
+                    | CHECK (<condition>) 
+                    | DEFAULT <default-value> 
+
+<foreign-key-definition> ::= REFERENCES <table> (<column-list>) [<on-delete-update>]
+
+<on-delete-update> ::= ON DELETE <action> | ON UPDATE <action> | <on-delete-update> <on-delete-update>
+
+<action> ::= CASCADE | SET NULL | SET DEFAULT | RESTRICT | NO ACTION
+
+<default-value> ::= <number> | <string> | CURRENT_DATE | CURRENT_TIMESTAMP | CURRENT_DATETIME | CURRENT_TIME | CURRENT_YEAR
+
+<column-options> ::= NOT NULL | NULL | PRIMARY KEY <serial> | UNIQUE | CHECK (<condicao>) | DEFAULT <default-value> | λ 
+
+<where-clause> ::= WHERE <condition> | λ
+
+<order-clause> ::= ORDER BY <column-list> <order-direction> | λ
+
+<group-clause> ::= GROUP BY <column-list> | λ
+
+<having-clause> ::= HAVING <condition> | λ
+
+<limit-clause> ::= LIMIT <number> | λ
+
+<offset-clause> ::= OFFSET <number> | λ
+
+<condition> ::= <column> <operator> <value>
+              | <condition> AND <condition>
+              | <condition> OR <condition>
+              | NOT <condition>
+
+<operator> ::= = | <> | < | <= | > | >= | BETWEEN | IN | LIKE
+
+<order-direction> ::= ASC | DESC | λ
+
+<show-options>:: = TABLES | DATABASES
+
+<column-list> ::= <column> | <column> , <column-list>
+
+<value-list> ::= <value> | <value> , <value-list>
+
+<database-or-table> ::= <database> | <table>
+
+<serial> ::= SERIAL | λ
+
+<constraint-name> ::= ident
+
+<database> ::= ident
+
+<table> ::= ident
+
+<user> ::= ident
+
+<index-name> ::= ident
+
+<new-idex-name> ::= ident
+
+<object-type> ::= TABLE | INDEX | USER | DATABASE
+
+<object-name> ::= ident
+
+<column> ::= ident
+
+<new-column> ::= ident
+
+<value> ::= literal | number
+
+<password> ::= literal
+
+<data-type> ::= INTEGER | BIGINT | FLOAT | DOUBLE | LONG DOUBLE | VARCHAR(<size>) | CHAR(<size>) | DATE | TIME | DATETIME | TIMESTAMP | BOOLEAN
+
+<size> ::= number
+
+<scale> ::= number
+
+<ident> ::= letter (letter | digit | '_')*
+
+<literal> ::= ''' (any character except single quote)* ''
+
+<number> ::= digit+
+
+<letter> ::= a-z | A-Z
+
+<digit> ::= 0-9
+
+<senha> ::= ident

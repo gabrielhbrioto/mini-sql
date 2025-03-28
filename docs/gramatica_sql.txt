@@ -183,7 +183,7 @@
 
 <ident> ::= <letter> (<letter> | <digit> | '_')*
 
-<literal> ::= "'" <any-char-except-quote>* "'"
+<literal> ::= ' <any-char-except-quote>* '
 
 <number> ::= <digit> | <digit> <number>
 

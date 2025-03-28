@@ -11,11 +11,16 @@
                   | <show-statement>
                   | <use-statement>
                   | <describe-statement>
-                  | <union-statement>
                   | <now-statement>
                   | <curdate-statement>
 
-<select-statement> ::= SELECT <column-list> FROM <table> <where-clause> <order-clause> <group-clause> <having-clause> <limit-clause> <offset-clause>
+<select-statement> ::= <select-core> <union-clause>
+
+<select-core>::= SELECT <select-list> FROM <from-clause> <where-clause> <group-clause> <having-clause> <order-clause> <limit-clause> <offset-clause>
+
+<union-clause> ::= UNION <all> <select-statement> <union-clause> | λ
+
+<all> ::= ALL | λ
 
 <insert-statement> ::= INSERT INTO <table> ( <column-list> ) VALUES ( <value-list> )
 
@@ -26,11 +31,11 @@
 <create-statement> ::= CREATE TABLE <table> ( <column-definitions> <constraint-definitions>)
                      | CREATE INDEX <index-name> ON <table> ( <column> )
                      | CREATE DATABASE <database>
-                     | CREATE USER <user> IDENTFIED BY <senha>
+                     | CREATE USER <user> IDENTIFIED BY <senha>
 
 <alter-statement> ::= ALTER TABLE <table> <alter-action>
                     | ALTER USER <user> WITH PASSWORD <password>
-                    | ALTER INDEX <idex-name> TO <new-idex-name>
+                    | ALTER INDEX <index-name> TO <new-index-name>
 
 <drop-statement> ::= DROP <object-type> <object-name>
 
@@ -44,13 +49,13 @@
 
 <describe-statement> ::= DESCRIBE <database-or-table>
 
-<union-statement> ::= <select-statement> UNION [ALL] <select-statement>
+<now-statement> ::= NOW()
 
-<now-statement> ::= SELECT NOW()
+<curdate-statement> ::= CURDATE()
 
-<curdate-statement> ::= SELECT CURDATE()
+<set-clause> ::= <set-item> | <set-item> , <set-clause>
 
-<set-clause> ::= <column> = <value> | <column> = <value>, <set-clause>
+<set-item> ::= <column> = <value>
 
 <alter-action> ::= ADD <column-definition>
                  | DROP COLUMN <column>
@@ -60,7 +65,7 @@
 
 <column-definitions> ::= <column-definition> | <column-definition> , <column-definitions>
 
-<constraint-definitions> ::= <constraint-definition> | <constraint-definition> , <constraint-definition> | λ 
+<constraint-definitions> ::= <constraint-definition> | <constraint-definition> , <constraint-definitions> | λ
 
 <column-definition> ::=  <column> <data-type> <column-options>
 
@@ -80,7 +85,9 @@
 
 <default-value> ::= <number> | <string> | CURRENT_DATE | CURRENT_TIMESTAMP | CURRENT_DATETIME | CURRENT_TIME | CURRENT_YEAR
 
-<column-options> ::= NOT NULL | NULL | PRIMARY KEY <serial> | UNIQUE | CHECK (<condicao>) | DEFAULT <default-value> | λ 
+<column-options> ::= <column-option> | <column-option> <column-options> | λ
+
+<column-option> ::= NOT NULL | NULL | PRIMARY KEY <serial> | UNIQUE | CHECK (<condicao>) | DEFAULT <default-value>
 
 <where-clause> ::= WHERE <condition> | λ
 
@@ -103,7 +110,36 @@
 
 <order-direction> ::= ASC | DESC | λ
 
-<show-options>:: = TABLES | DATABASES
+<show-options> ::= TABLES | DATABASES
+
+<select-list> ::= <column-item> | <column-item> , <select-list>
+
+<column-item> ::= <column>
+                | <aggregate-function>
+                | <scalar-function>
+                | <column> AS <alias>
+
+<scalar-function> ::= <curdate-statement> | <now-statement>
+
+<aggregate-function> ::= <aggregate-function-name> ( <aggregate-argument> )
+
+<aggregate-function-name> ::= MAX | MIN | AVG | COUNT | SUM | ABS
+
+<aggregate-argument> ::= * | <column>
+
+<from-clause> ::= <table-reference> | <table-reference> <join-clause>
+
+<table-reference> ::= <table> | <table> AS <alias>
+
+<join-clause> ::= <join-type> JOIN <table-reference> ON <join-condition> <join-rec>
+
+<join-rec> ::= <join-clause> | λ
+
+<join-type> ::= INNER | LEFT <outer> | RIGHT <outer> | FULL <outer>
+
+<outer> ::= OUTER | λ
+
+<join-condition> ::= <column> = <column>
 
 <column-list> ::= <column> | <column> , <column-list>
 
@@ -113,44 +149,46 @@
 
 <serial> ::= SERIAL | λ
 
-<constraint-name> ::= ident
+<alias> ::= <ident>
 
-<database> ::= ident
+<constraint-name> ::= <ident>
 
-<table> ::= ident
+<database> ::= <ident>
 
-<user> ::= ident
+<table> ::= <ident>
 
-<index-name> ::= ident
+<user> ::= <ident>
 
-<new-idex-name> ::= ident
+<index-name> ::= <ident>
+
+<new-index-name> ::= <ident>
 
 <object-type> ::= TABLE | INDEX | USER | DATABASE
 
-<object-name> ::= ident
+<object-name> ::= <ident>
 
-<column> ::= ident
+<column> ::= <ident>
 
-<new-column> ::= ident
+<new-column> ::= <ident>
 
-<value> ::= literal | number
+<value> ::= <literal> | <number>
 
-<password> ::= literal
+<password> ::= <literal>
 
-<data-type> ::= INTEGER | BIGINT | FLOAT | DOUBLE | LONG DOUBLE | VARCHAR(<size>) | CHAR(<size>) | DATE | TIME | DATETIME | TIMESTAMP | BOOLEAN
+<data-type> ::= INTEGER | BIGINT | FLOAT | DOUBLE | LONG DOUBLE | VARCHAR( <size> ) | CHAR( <size> ) | DATE | TIME | DATETIME | TIMESTAMP | BOOLEAN
 
-<size> ::= number
+<size> ::= <number>
 
-<scale> ::= number
+<scale> ::= <number>
 
-<ident> ::= letter (letter | digit | '_')*
+<ident> ::= <letter> (<letter> | <digit> | '_')*
 
-<literal> ::= ''' (any character except single quote)* ''
+<literal> ::= "'" <any-char-except-quote>* "'"
 
-<number> ::= digit+
+<number> ::= <digit> | <digit> <number>
 
 <letter> ::= a-z | A-Z
 
 <digit> ::= 0-9
 
-<senha> ::= ident
+<senha> ::= <ident>

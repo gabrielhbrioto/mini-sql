@@ -1,3 +1,10 @@
+CC = gcc
+CFLAGS = -Wall -g
+TARGET = minisql
+PREFIX = /usr/local
+BINDIR = $(PREFIX)/bin
+DATADIR = /var/lib/minisql
+
 all: exec
 
 run: exec
@@ -25,12 +32,7 @@ exec: src/main.c src/sqlEngine.c src/utils.c
 #func1.o : func1.c
 #	gcc -Wall -g -o func1.o -c func1.c
 
-CC = gcc
-CFLAGS = -Wall -g
-TARGET = minisql
-PREFIX = /usr/local
-BINDIR = $(PREFIX)/bin
-DATADIR = /var/lib/minisql
+
 
 all: $(TARGET)
 

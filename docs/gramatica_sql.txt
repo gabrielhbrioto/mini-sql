@@ -31,11 +31,12 @@
 <create-statement> ::= CREATE TABLE <table> ( <column-definitions> <constraint-definitions>)
                      | CREATE INDEX <index-name> ON <table> ( <column> )
                      | CREATE DATABASE <database>
-                     | CREATE USER <user> IDENTIFIED BY <senha>
+                     | CREATE USER <user> IDENTIFIED BY <password>
 
-<alter-statement> ::= ALTER TABLE <table> <alter-action>
+<alter-statement> ::= ALTER TABLE <table> <alter-table-action>
                     | ALTER USER <user> WITH PASSWORD <password>
                     | ALTER INDEX <index-name> TO <new-index-name>
+                    | ALTER DATABASE <database> <alter-database-action>
 
 <drop-statement> ::= DROP <object-type> <object-name>
 
@@ -57,11 +58,14 @@
 
 <set-item> ::= <column> = <value>
 
-<alter-action> ::= ADD <column-definition>
+<alter-table-action> ::= ADD <column-definition>
                  | DROP COLUMN <column>
                  | MODIFY <column-definition>
                  | RENAME COLUMN <column> TO <new-column>
                  | ADD <constraint>
+
+<alter-database-action> ::= RENAME TO <new-database>
+                    | OWNER TO <user>
 
 <column-definitions> ::= <column-definition> | <column-definition> , <column-definitions>
 
@@ -79,11 +83,15 @@
 
 <foreign-key-definition> ::= REFERENCES <table> (<column-list>) [<on-delete-update>]
 
-<on-delete-update> ::= ON DELETE <action> | ON UPDATE <action> | <on-delete-update> <on-delete-update>
+<on-delete-update> ::= <on-action> 
+                     | <on-action> <on-action>
+
+<on-action> ::= ON DELETE <action> 
+              | ON UPDATE <action>
 
 <action> ::= CASCADE | SET NULL | SET DEFAULT | RESTRICT | NO ACTION
 
-<default-value> ::= <number> | <string> | CURRENT_DATE | CURRENT_TIMESTAMP | CURRENT_DATETIME | CURRENT_TIME | CURRENT_YEAR
+<default-value> ::= <number> | <literal> | CURRENT_DATE | CURRENT_TIMESTAMP | CURRENT_DATETIME | CURRENT_TIME | CURRENT_YEAR
 
 <column-options> ::= <column-option> | <column-option> <column-options> | λ
 
@@ -101,10 +109,15 @@
 
 <offset-clause> ::= OFFSET <number> | λ
 
-<condition> ::= <column> <operator> <value>
-              | <condition> AND <condition>
-              | <condition> OR <condition>
-              | NOT <condition>
+<condition> ::= <simple-condition> <condition-rest>
+
+<condition-rest> ::= AND <simple-condition> <condition-rest>
+                   | OR <simple-condition> <condition-rest>
+                   | λ
+
+<simple-condition> ::= NOT <simple-condition>
+                     | <column> <operator> <value>
+
 
 <operator> ::= = | <> | < | <= | > | >= | BETWEEN | IN | LIKE
 
@@ -183,7 +196,7 @@
 
 <ident> ::= <letter> (<letter> | <digit> | '_')*
 
-<literal> ::= ' <any-char-except-quote>* '
+<literal> ::= '\'' <any-char-except-quote>* '\''
 
 <number> ::= <digit> | <digit> <number>
 
@@ -191,4 +204,4 @@
 
 <digit> ::= 0-9
 
-<senha> ::= <ident>
+<new-database> ::= <ident>

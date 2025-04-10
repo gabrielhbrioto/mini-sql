@@ -4,6 +4,7 @@
 //define error messages
 #define MEMORY_ALOCATION_ERRROR perror("Failed to alocate memory\n");
 #define TRANSITION_ERRROR perror("mini-sql: error: transicao inexistente");
+#define NOT_ALLOWED_CHAR perror("mini-sql: error: not allowed character"); //dar um jeito de imprimir o caractere que não é permitido e a sua posição
 
 #define ERRO_LEXICO_1  perror("alex: Erro lexico na linha %d: comentário não fechado: '%s' \n", *linha-1, *token);
 #define ERRO_LEXICO_2  perror("alex: Erro lexico na linha %d: caractere inválido ':', você quis dizer ':='?\n", *linha);

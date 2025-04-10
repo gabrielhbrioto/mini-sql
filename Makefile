@@ -25,7 +25,35 @@ exec: src/main.c src/sqlEngine.c src/utils.c
 #func1.o : func1.c
 #	gcc -Wall -g -o func1.o -c func1.c
 
-clean: 
+CC = gcc
+CFLAGS = -Wall -g
+TARGET = minisql
+PREFIX = /usr/local
+BINDIR = $(PREFIX)/bin
+DATADIR = /var/lib/minisql
+
+all: $(TARGET)
+
+$(TARGET): main.c
+	$(CC) $(CFLAGS) -o $(TARGET) main.c
+
+install: $(TARGET)
+	@echo "Instalando o programa..."
+	install -d $(BINDIR)
+	install -m 755 $(TARGET) $(BINDIR)/$(TARGET)
+	ln -sf $(BINDIR)/$(TARGET) /usr/bin/minisql
+	install -d $(DATADIR)
+	@echo "Instalação concluída com sucesso."
+
+uninstall:
+	@echo "Removendo o programa..."
+	rm -f /usr/bin/minisql
+	rm -f $(BINDIR)/$(TARGET)
+	rm -rf $(DATADIR)
+	@echo "Remoção concluída com sucesso."
+
+clean:
+	rm -f $(TARGET)
 	rm exec
 
 gdb: exec

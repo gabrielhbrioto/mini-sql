@@ -1,0 +1,41 @@
+sql,tokens
+CREATE DATABASE loja_virtual;,<create> <database> <loja_virtual> <semicolon>
+"CREATE TABLE produtos ( id INTEGER PRIMARY KEY, nome VARCHAR(100) NOT NULL, preco FLOAT CHECK (preco > 0), categoria_id INTEGER, criado_em DATE DEFAULT CURRENT_DATE, CONSTRAINT fk_categoria FOREIGN KEY (categoria_id) REFERENCES categorias (id) ON DELETE CASCADE ON UPDATE SET NULL );",<create> <table> <produtos> <lparen> <id> <INTEGER> <primary> <key> <comma> <nome> <VARCHAR> <lparen> <100> <rparen> <not> <null> <comma> <preco> <FLOAT> <check> <lparen> <preco> <gt_symb> <0> <rparen> <comma> <categoria_id> <INTEGER> <comma> <criado_em> <DATE> <default> <CURRENT_DATE> <comma> <constraint> <fk_categoria> <foreign> <key> <lparen> <categoria_id> <rparen> <references> <categorias> <lparen> <id> <rparen> <on> <delete> <cascade> <on> <update> <set> <null> <rparen> <semicolon>
+CREATE INDEX idx_nome ON produtos (nome);,<create> <index> <idx_nome> <on> <produtos> <lparen> <nome> <rparen> <semicolon>
+CREATE USER admin IDENTIFIED BY 'senha123';,<create> <user> <admin> <identified> <by> <senha123> <semicolon>
+ALTER TABLE produtos ADD descricao VARCHAR(255);,<alter> <table> <produtos> <add> <descricao> <VARCHAR> <lparen> <255> <rparen> <semicolon>
+ALTER TABLE produtos DROP COLUMN descricao;,<alter> <table> <produtos> <drop> <column> <descricao> <semicolon>
+ALTER TABLE produtos MODIFY nome VARCHAR(150);,<alter> <table> <produtos> <modify> <nome> <VARCHAR> <lparen> <150> <rparen> <semicolon>
+ALTER TABLE produtos RENAME COLUMN preco TO valor;,<alter> <table> <produtos> <rename> <column> <preco> <to> <valor> <semicolon>
+ALTER TABLE produtos ADD CONSTRAINT preco_positivo CHECK (valor > 0);,<alter> <table> <produtos> <add> <constraint> <preco_positivo> <check> <lparen> <valor> <gt_symb> <0> <rparen> <semicolon>
+ALTER USER admin WITH PASSWORD 'novasenha456';,<alter> <user> <admin> <with> <password> <novasenha456> <semicolon>
+ALTER INDEX idx_nome TO idx_novo_nome;,<alter> <index> <idx_nome> <to> <idx_novo_nome> <semicolon>
+ALTER DATABASE loja_virtual RENAME TO nova_loja;,<alter> <database> <loja_virtual> <rename> <to> <nova_loja> <semicolon>
+ALTER DATABASE nova_loja OWNER TO gestor;,<alter> <database> <nova_loja> <owner> <to> <gestor> <semicolon>
+DROP TABLE produtos;,<drop> <table> <produtos> <semicolon>
+DROP INDEX idx_novo_nome;,<drop> <index> <idx_novo_nome> <semicolon>
+DROP USER admin;,<drop> <user> <admin> <semicolon>
+DROP DATABASE nova_loja;,<drop> <database> <nova_loja> <semicolon>
+GRANT SELECT ON categorias TO operador;,<grant> <select> <on> <categorias> <to> <operador> <semicolon>
+REVOKE SELECT ON categorias FROM operador;,<revoke> <select> <on> <categorias> <from> <operador> <semicolon>
+SHOW TABLES;,<show> <tables> <semicolon>
+SHOW DATABASES;,<show> <databases> <semicolon>
+USE nova_loja;,<use> <nova_loja> <semicolon>
+DESCRIBE produtos;,<describe> <produtos> <semicolon>
+DESCRIBE loja_virtual;,<describe> <loja_virtual> <semicolon>
+SELECT * FROM produtos;,<select> <asterisk> <from> <produtos> <semicolon>
+"SELECT nome, preco FROM produtos WHERE valor > 100;",<select> <nome> <comma> <preco> <from> <produtos> <where> <valor> <gt_symb> <100> <semicolon>
+"SELECT nome, COUNT(*) AS total FROM produtos GROUP BY nome HAVING COUNT(*) > 2 ORDER BY nome ASC LIMIT 10 OFFSET 5;",<select> <nome> <comma> <COUNT> <lparen> <asterisk> <rparen> <as> <total> <from> <produtos> <group> <by> <nome> <having> <COUNT> <lparen> <asterisk> <rparen> <gt_symb> <2> <order> <by> <nome> <ASC> <limit> <10> <offset> <5> <semicolon>
+"SELECT p.nome AS produto_nome, AVG(p.valor) AS media_preco FROM produtos AS p INNER JOIN categorias AS c ON p.categoria_id = c.id GROUP BY p.nome;",<select> <p> <dot> <nome> <as> <produto_nome> <comma> <AVG> <lparen> <p> <dot> <valor> <rparen> <as> <media_preco> <from> <produtos> <as> <p> <inner> <join> <categorias> <as> <c> <on> <p> <dot> <categoria_id> <equal_symb> <c> <dot> <id> <group> <by> <p> <dot> <nome> <semicolon>
+SELECT nome FROM produtos UNION ALL SELECT nome FROM categorias;,<select> <nome> <from> <produtos> <union> <all> <select> <nome> <from> <categorias> <semicolon>
+"SELECT NOW(), CURDATE();",<select> <now> <lparen> <rparen> <comma> <curdate> <lparen> <rparen> <semicolon>
+"INSERT INTO produtos (id, nome, preco, categoria_id) VALUES (1, 'Notebook', 3500, 2);",<insert> <into> <produtos> <lparen> <id> <comma> <nome> <comma> <preco> <comma> <categoria_id> <rparen> <values> <lparen> <1> <comma> <Notebook> <comma> <3500> <comma> <2> <rparen> <semicolon>
+"INSERT INTO categorias (id, nome) VALUES (2, 'Eletrônicos');",<insert> <into> <categorias> <lparen> <id> <comma> <nome> <rparen> <values> <lparen> <2> <comma> <Eletrônicos> <rparen> <semicolon>
+"UPDATE produtos SET preco = 2999, nome = 'Notebook Gamer' WHERE id = 1;",<update> <produtos> <set> <preco> <equal_symb> <2999> <comma> <nome> <equal_symb> <'Notebook> <Gamer'> <where> <id> <equal_symb> <1> <semicolon>
+DELETE FROM produtos WHERE id = 1;,<delete> <from> <produtos> <where> <id> <equal_symb> <1> <semicolon>
+SELECT nome FROM produtos WHERE preco >= 100 AND nome LIKE '%Book%';,<select> <nome> <from> <produtos> <where> <preco> <ge_symb> <100> <and> <nome> <like> <'> <percent_symb> <Book> <percent_symb> <'> <semicolon>
+"SELECT nome FROM produtos WHERE categoria_id IN (1, 2, 3);",<select> <nome> <from> <produtos> <where> <categoria_id> <in> <lparen> <1> <comma> <2> <comma> <3> <rparen> <semicolon>
+SELECT nome FROM produtos WHERE preco BETWEEN 500 AND 2000;,<select> <nome> <from> <produtos> <where> <preco> <between> <500> <and> <2000> <semicolon>
+SELECT nome FROM produtos WHERE NOT preco = 0;,<select> <nome> <from> <produtos> <where> <not> <preco> <equal_symb> <0> <semicolon>
+NOW();,<now> <lparen> <rparen> <semicolon>
+CURDATE();,<curdate> <lparen> <rparen> <semicolon>
